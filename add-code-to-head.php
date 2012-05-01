@@ -57,11 +57,13 @@ function acth_main_section() {?>
 // Code for field
 function acth_text_field() {
 	$options = get_option('acth_options'); ?>
-        <textarea id="acth_string" name="acth_string" rows="20" cols="90"><?php _e($options['text_string']); ?></textarea>
+        <textarea id="acth_options" name="acth_options[text_string]" rows="20" cols="90"><?php _e($options['text_string']); ?></textarea>
 <?php }
 
 
 // Validate input
-function acth_options_validate() {
+function acth_options_validate($input) {
+	$newinput['text_string'] = trim($input['text_string']);
+	return $newinput;
 }
 ?>
