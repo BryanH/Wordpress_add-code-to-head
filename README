@@ -1,4 +1,5 @@
 === Add Text To Head ===
+Contributors: HBJitney LLC
 Tags: code, javascript, css, template
 Requires at least: 3.3.2
 Tested up to: 3.4
@@ -16,43 +17,43 @@ If you wish to add any custom HTML to the bottom of each page's head, then this 
 
 The problem with editing the template directly is if you ever update the template, your changes will be lost. This plugin works around this issue.
 
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
-
-A few notes about the sections above:
-
 == Installation ==
+If you have a single file (ending in ".zip"), then use the *Upload* method. If you have multiple files, use the *Files* method. If you're installing from wordpress directly, just hit the big 'Install Plugin' button.
+= Upload =
+1. From the plugins, add new screen, choose upload
+1. Navigate to where the .zip file is located and select it
+1. Make sure to *activate* the plugin once it is installed
 
-1. Upload the entire directory (not just the files to the `/wp-content/plugins/` directory
+= Files =
+1. Upload the entire directory (not just the files) to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+
 
 == Frequently Asked Questions ==
 
-= I don't know HTML/Javascript/CSS; can I still use this plugin? =
+= Q. I don't know HTML/Javascript/CSS; can I still use this plugin? =
 
 Yes, but you may easily get confused and mess up your whole site. It is better to learn the code first before you use this plugin.
 
-= Help! I messed up my whole site! =
+= Q. Help! I messed up my whole site! =
 
 Disable the plugin. If your site is still messed up, then there's some other problem.
 
-= I disabled your plugin and the problem went away. Now what. =
-	
+= Q. I disabled your plugin and the problem went away. Now what? =
+
 The problem lies in whatever you typed/pasted into this plugin's option screen. If you're really stuck, then try clearing out the code and starting over.
 
-= Help! I accidentally erased the code and I didn't mean to do that? =
+= Q. Help! I accidentally erased the code and I didn't mean to do that. =
 
 That data is stored in your database. If you made a backup before you deleted the data, then you can restore it that way, otherwise it is gone.
 
-= How do I apply code to only a certain page or pages? =
+= Q. How do I apply code to only a certain page or pages? =
 
-Right now you cannot. If there is sufficient demand, then we'll add it. 
+Right now you cannot. If there is sufficient demand, then we'll add it.
 
-= Can I ask for additional functionality? =
+= Q. Can I ask for additional functionality? =
 
-Absolutely! Please try to be as specific as possible.
+Absolutely!
 
 == Screenshots ==
 
@@ -63,6 +64,8 @@ Absolutely! Please try to be as specific as possible.
 = 1.09 =
 * Readme file added
 
+= 1.07 =
+* Original release
 
 == Upgrade Notice ==
 
