@@ -1,9 +1,9 @@
 <?php
 /*
  * Plugin Name: Add Code to Head
- * Plugin URI: http://www.hbjitney.com/wordpress/add-code-to-head
+ * Plugin URI: http://hbjitney.com/add-code-to-header.html
  * Description: Adds custom html code (javascript, css, etc.) to each public page's head
- * Version: 1.05
+ * Version: 1.07
  * Author: HBJitney, LLC
  * Author URI: http://hbjitney.com/
  * License: GPL3
@@ -115,7 +115,7 @@ if ( !class_exists('AddCodeToHead' ) ) {
  * Sanity - was there a problem setting up the class? If so, bail with error
  * Otherwise, class is now defined; create a new one it to get the ball rolling.
  */
-if( class_exists( AddCodeToHead ) ) {
+if( class_exists( 'AddCodeToHead' ) ) {
 	new AddCodeToHead();
 } else {
 	$message = "<h2 style='color:red'>Error in plugin</h2>
