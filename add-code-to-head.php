@@ -129,11 +129,3 @@ if( class_exists( 'AddCodeToHead' ) ) {
 	wp_die( $message );
 }
 ?>
-
-
-
-
-
-
-
-           

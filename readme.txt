@@ -70,6 +70,4 @@ Absolutely!
 
 = 1.09 =
 Production release
-
-           
            
