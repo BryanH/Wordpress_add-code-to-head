@@ -10,7 +10,7 @@ This plugin allows you to insert code into the template head without having to e
 
 == Description ==
 
-Intended users: Template Designers, Developers
+Intended users: Template Designers, Developer
 
 If you wish to add any custom HTML to the bottom of each page's head, then this plugin is for you. For example, you can add some custom CSS, a link to an external javascript file or something else.
 
@@ -25,7 +25,7 @@ If you have a single file (ending in ".zip"), then use the *Upload* method. If y
 
 = Files =
 1. Upload the entire directory (not just the files) to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Activate the plugin through the 'Plugins' menu in WordPre
 
 
 == Frequently Asked Questions ==
@@ -71,3 +71,4 @@ Absolutely!
 = 1.09 =
 Production release
 
+           
