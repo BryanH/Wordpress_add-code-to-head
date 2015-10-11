@@ -1,4 +1,4 @@
-=== Add Text To Head ===
+=== Add Code To Head ===
 Contributors: HBJitney LLC
 Tags: code, javascript, css, template
 Requires at least: 3.3.2
@@ -7,7 +7,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Stable tag: trunk
 
-Insert code into the template head without having to edit the template itself.
+(Formerly Add Text to Head) Add custom Javascript/HTML/CSS codes to the page head without editing the template.
 
 == Description ==
 
@@ -72,6 +72,8 @@ Absolutely!
 Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 == Changelog ==
+= 1.11 =
+* Name changed to (hopefully) reduce confusion.
 
 = 1.10 =
 * Screenshot updated
@@ -85,6 +87,6 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 == Upgrade Notice ==
 
-= 1.10 =
-Tested with Wordpress 4.3.1
+= 1.11 =
+Name change
 
