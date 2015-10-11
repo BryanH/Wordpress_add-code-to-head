@@ -45,7 +45,7 @@ if ( !class_exists('AddCodeToHead' ) ) {
 		}
 
 		/**
-		 * Callback for options page - set up page title and instantiate fields
+		 * Callback for options page - set up page title and instantiate field
 		 */
 		function plugin_options_page() {
 ?>
@@ -90,7 +90,7 @@ if ( !class_exists('AddCodeToHead' ) ) {
 		}
 
 		/*
-		 * No validation, just remove leading and trailing spaces
+		 * No validation, just remove leading and trailing space
 		 */
 		function options_validate($input) {
 			$newinput['text_string'] = trim( $input['text_string'] );
@@ -129,3 +129,7 @@ if( class_exists( 'AddCodeToHead' ) ) {
 	wp_die( $message );
 }
 ?>
+
+
+
+
