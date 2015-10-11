@@ -2,7 +2,7 @@
 Contributors: HBJitney LLC
 Tags: code, javascript, css, template
 Requires at least: 3.3.2
-Tested up to: 3.4.2
+Tested up to: 4.3.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -42,8 +42,6 @@ Disable the plugin. If your site is still messed up, then there's some other pro
 
 The problem lies in whatever you typed/pasted into this plugin's option screen. If you're really stuck, then try clearing out the code and starting over.
 
-= Q. Help! I accidentally erased the code and I didn't mean to do that. =
-
 That data is stored in your database. If you made a backup before you deleted the data, then you can restore it that way, otherwise it is gone.
 
 = Q. How do I apply code to only a certain page or pages? =
@@ -60,6 +58,10 @@ Absolutely!
 
 == Changelog ==
 
+= 1.10
+* Screenshot updated
+* Compatibility with latest Wordpress
+
 = 1.09 =
 * Readme file added
 
@@ -70,4 +72,4 @@ Absolutely!
 
 = 1.09 =
 Production release
-           
+
