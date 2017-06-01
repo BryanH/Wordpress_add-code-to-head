@@ -2,7 +2,7 @@
 Contributors: HBJitney LLC
 Tags: code, javascript, css, template
 Requires at least: 3.3.2
-Tested up to: 4.6.1
+Tested up to: 4.8.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Stable tag: trunk
