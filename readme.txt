@@ -2,7 +2,7 @@
 Contributors: HBJitney LLC
 Tags: code, javascript, css, template
 Requires at least: 3.3.2
-Tested up to: 4.8.0
+Tested up to: 5.7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Stable tag: trunk
@@ -74,6 +74,10 @@ Absolutely!
 Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 == Changelog ==
+= 1.15 =
+* Tested compatibility up to WP 5.7.2
+* Reformatted script: converted tabs to spaces
+
 = 1.13 =
 * Tested compatibility up to WP 4.6.1
 
@@ -92,6 +96,7 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 == Upgrade Notice ==
 
-= 1.13 =
-Verified Compatible with WP 4.6.1
+= 1.15 =
+Verified Compatible with WP 5.7.2
+No other changes
 
