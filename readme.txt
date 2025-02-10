@@ -2,12 +2,12 @@
 Contributors: HBJitney LLC
 Tags: code, javascript, css, template
 Requires at least: 3.3.2
-Tested up to: 5.7.2
+Tested up to: 6.7.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Stable tag: trunk
 
-(Formerly Add Text to Head) Add custom Javascript/HTML/CSS codes to the page head without editing the template.
+Add custom Javascript/HTML/CSS codes to the page head without editing the template.
 
 == Description ==
 
@@ -46,6 +46,10 @@ Another plugin or the theme is adding their own codes to the head _after_ this p
 
 Yes, but you may easily get confused and mess up your whole site. It is better to learn the code first before you use this plugin.
 
+= Q. Wordfence says something like "A potentially unsafe operation has been detected in your request to this site." =
+
+If you try to add a script or some other potentially-dangerous code (even if it isn't), Wordfence might complain. Double check your code and if it is okay, mark it as a false positive in Wordfence.
+
 = Q. Help! I messed up my whole site! =
 
 Disable the plugin. If your site is still messed up, then there's some other problem.
@@ -74,6 +78,10 @@ Absolutely!
 Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 == Changelog ==
+= 1.17 =
+* Tested compatibility up to WP 6.7.1
+* Added note about Wordfence error that might be encountered
+
 = 1.15 =
 * Tested compatibility up to WP 5.7.2
 * Reformatted script: converted tabs to spaces
@@ -96,7 +104,7 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 == Upgrade Notice ==
 
-= 1.15 =
-Verified Compatible with WP 5.7.2
-No other changes
-
+= 1.17 =
+* Verified Compatible with WP 6.7.1
+* Added note about potential Wordfence issue to the readme
+* No other changes
