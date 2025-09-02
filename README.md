@@ -80,6 +80,9 @@ Absolutely!
 Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 ## Changelog ##
+### 1.19 ###
+* Fix for cross-site scripting vulnerability
+
 ### 1.17 ###
 * Tested compatibility up to WP 6.7.1
 * Added note about Wordfence error that might be encountered
@@ -106,9 +109,8 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 ## Upgrade Notice ##
 
-### 1.17 ###
-* Verified Compatible with WP 6.7.1
-* Added note about potential Wordfence issue to the readme
-* No other changes
+### 1.19 ###
+* Fix for CVE ID: CVE‑2025‑48314
+* Mitigated cross-site scripting (XSS) vulnerability by escaping code in the admin console.
 
 [wf]:https://www.wordfence.com

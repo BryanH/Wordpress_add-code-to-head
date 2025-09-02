@@ -3,7 +3,7 @@
  * Plugin Name: Add Code to Head
  * Plugin URI: http://hbjitney.com/add-code-to-header.html
  * Description: Adds custom html code (javascript, css, etc.) to each public page's head
- * Version: 1.17
+ * Version: 1.19
  * Author: HBJitney, LLC
  * Author URI: http://hbjitney.com/
  * License: GPL3
@@ -48,6 +48,10 @@ if ( !class_exists('AddCodeToHead' ) ) {
      * Callback for options page - set up page title and instantiate field
      */
     function plugin_options_page() {
+      // Hide our menu item if user can't change site options
+      if( !current_user_can( 'manage_options' ) ) {
+        return;
+    }
 ?>
     <div class="plugin-options">
      <h2><span>Add Code to Head</span></h2>
@@ -84,8 +88,12 @@ if ( !class_exists('AddCodeToHead' ) ) {
      */
     function text_field() {
       $options = get_option( 'acth_options' );
+      // If not set, output blank string to prevent error
+      $val = isset( $options['text_string'] ) ? $options['text_string'] : '';
 ?>
-            <textarea id="acth_options" name="acth_options[text_string]" rows="20" cols="90"><?php _e( $options['text_string'] );?></textarea>
+            <textarea id="acth_options" name="acth_options[text_string]" rows="20" cols="90">
+              <?php echo esc_textarea( $val ); ?>
+            </textarea>
 <?php
     }
 
@@ -93,7 +101,7 @@ if ( !class_exists('AddCodeToHead' ) ) {
      * No validation, just remove leading and trailing space
      */
     function options_validate($input) {
-      $newinput['text_string'] = trim( $input['text_string'] );
+      $newinput['text_string'] = isset( $input['text_string'] ) ? trim( $input['text_string'] ) : '';
       return $newinput;
     }
 
@@ -105,7 +113,8 @@ if ( !class_exists('AddCodeToHead' ) ) {
     function display() {
       if( !is_admin() ) {
         $options = get_option( 'acth_options' );
-        _e( $options['text_string'] );
+    $code = isset( $options['text_string'] ) ? $options['text_string'] : '';
+    echo $code; // Not escaped on front-end
       }
     }
   }
