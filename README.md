@@ -13,9 +13,21 @@ Add custom Javascript/HTML/CSS codes to the page head without editing the templa
 
 Intended users: Template Designers, Developer
 
-If you wish to add any custom HTML to the bottom of each page's head, then this plugin is for you. For example, you can add some custom CSS, a link to an external javascript file or something else.
+If you wish to add any custom HTML to each page's header, then this plugin is for you.
 
-The problem with editing the template directly is if you ever update the template, your changes will be lost. This plugin works around this issue.
+This is useful for verifying you are the owner of the website to services such
+as Mailchimp or Google. You can quickly add the verification codes to your page
+header without having to edit your site's template.
+
+In general, you can add custom CSS, a link to an external javascript file or
+something else. While it is generally recommended to create a child template if
+you're going to make extensive, permanent changes to a template, there may be
+instances where a small change or two is needed that wouldn't justify the
+creation of a child template&mdash;or your current template might not support
+child templates. You should nearly always avoid editing a template directly,
+because your changes will be lost when you next update the template.
+
+This plugin is not affected by template changes.
 
 ## Installation ##
 ### Via your Blog’s install plugin option ###
@@ -37,6 +49,10 @@ If you have multiple files in a directory, use this method.
 
 
 ## Frequently Asked Questions ##
+
+### Q. Will the latest changes resolve CVE-2025-48314? ###
+
+The plugin now normalizes and sanitizes saved head code for users who do not have the `unfiltered_html` capability before it is stored, closing the stored XSS vector described in CVE-2025-48314 for untrusted roles. Site owners who intentionally grant `unfiltered_html` (such as administrators on single-site installs) still bypass this sanitization by design so they can insert arbitrary code.
 
 ### Q. Why aren't my codes being added to the absolute end of the head? ###
 
@@ -80,6 +96,9 @@ Absolutely!
 Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 ## Changelog ##
+### 1.19 ###
+* Fix for cross-site scripting vulnerability reported as CVE‑2025‑48314
+
 ### 1.17 ###
 * Tested compatibility up to WP 6.7.1
 * Added note about Wordfence error that might be encountered
@@ -106,9 +125,8 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 ## Upgrade Notice ##
 
-### 1.17 ###
-* Verified Compatible with WP 6.7.1
-* Added note about potential Wordfence issue to the readme
-* No other changes
+### 1.19 ###
+* Fix for CVE ID: CVE‑2025‑48314
+* Stored head code is sanitized for users without `unfiltered_html`, mitigating the cross-site scripting (XSS) issue for untrusted roles
 
 [wf]:https://www.wordfence.com
