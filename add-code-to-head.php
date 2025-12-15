@@ -98,10 +98,18 @@ if ( !class_exists('AddCodeToHead' ) ) {
     }
 
     /*
-     * No validation, just remove leading and trailing space
+     * Normalize stored code and sanitize it for users who are not allowed
+     * to save unfiltered HTML, reducing the chance of stored XSS for those
+     * accounts while keeping full control for trusted users.
      */
     function options_validate($input) {
       $newinput['text_string'] = isset( $input['text_string'] ) ? trim( $input['text_string'] ) : '';
+
+      // Only allow unfiltered HTML for users who have the capability; otherwise, sanitize.
+      if ( ! current_user_can( 'unfiltered_html' ) ) {
+        $newinput['text_string'] = wp_kses( $newinput['text_string'], wp_kses_allowed_html( 'post' ) );
+      }
+
       return $newinput;
     }
 
