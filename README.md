@@ -1,17 +1,17 @@
 # Add Code To Head #
-**Contributors:** HBJitney LLC \
-**Tags:** code, javascript, css, template \
-**Requires at least:** 3.3.2 \
-**Tested up to:** 6.7.1 \
-**License:** GPLv3 \
-**License URI:** http://www.gnu.org/licenses/gpl-3.0.html \
+**Contributors:** HBJitney LLC<br>
+**Tags:** code, javascript, css, template<br>
+**Requires at least:** 3.3.2<br>
+**Tested up to:** 6.9.0<br>
+**License:** GPLv3<br>
+**License URI:** http://www.gnu.org/licenses/gpl-3.0.html<br>
 **Stable tag:** trunk
 
 Add custom Javascript/HTML/CSS codes to the page head without editing the template.
 
 ## Description ##
 
-Intended users: Template Designers, Developer
+Intended users: Template Designers, Developer, Admins
 
 If you wish to add any custom HTML to each page's header, then this plugin is for you.
 
@@ -30,7 +30,7 @@ because your changes will be lost when you next update the template.
 This plugin is not affected by template changes.
 
 ## Installation ##
-### Via your Blog’s install plugin option ###
+### Via the Wordpress install plugin option ###
 
 * Click the big 'Install Plugin' button in the plugin description window
 
