@@ -54,13 +54,12 @@ if ( !class_exists('AddCodeToHead' ) ) {
     }
 ?>
     <div class="plugin-options">
-     <h2><span>Add Code to Head</span></h2>
+	 <h2><span>Add Code to Head</span></h2>
      <form action="options.php" method="post">
 <?php
       settings_fields( 'acth_options' );
       do_settings_sections( 'acth_plugin' );
 ?>
-
       <input name="Submit" type="submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" />
      </form>
     </div>
@@ -94,6 +93,11 @@ if ( !class_exists('AddCodeToHead' ) ) {
             <textarea id="acth_options" name="acth_options[text_string]" rows="20" cols="90">
               <?php echo esc_textarea( $val ); ?>
             </textarea>
+            <div class="notice notice-warning">
+              <p><strong>⚠️ WARNING:</strong><br>All code entered here is added to every page on the blog.</p>
+              <p>This means any script you add here will run on every page, for every visitor.</p>
+              <p>Only <strong>Trusted Administrators</strong> should use this function.</p>
+            </div>
 <?php
     }
 
