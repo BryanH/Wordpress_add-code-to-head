@@ -78,8 +78,8 @@ if ( !class_exists('AddCodeToHead' ) ) {
         'acth_plugin',
         array('before_section'=> <<<END
         <div class="notice notice-warning">
-          <p><strong>⚠️ WARNING:</strong><br>All code entered here is added to every page on the blog.</p>
-          <p>This means any script you add here will run on every page, for every visitor.</p>
+          <p><strong>⚠️ WARNING:</strong><br>All code entered here is added to every public page on the blog.
+          This means any script you add here will run on every page, for every visitor.</p>
           <p>Only <strong>Trusted Administrators</strong> should use this function.</p>
         </div>
         END
@@ -107,7 +107,6 @@ if ( !class_exists('AddCodeToHead' ) ) {
             <textarea id="acth_options" name="acth_options[text_string]" rows="20" cols="90">
               <?php echo esc_textarea( $val ); ?>
             </textarea>
-
 <?php
     }
 
