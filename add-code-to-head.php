@@ -77,7 +77,7 @@ if ( !class_exists('AddCodeToHead' ) ) {
         array( $this, 'main_section' ),
         'acth_plugin',
         array('before_section'=> <<<END
-        <div class="notice notice-warning update-nag">
+        <div class="notice notice-warning">
           <p><strong>⚠️ WARNING:</strong><br>All code entered here is added to every page on the blog.</p>
           <p>This means any script you add here will run on every page, for every visitor.</p>
           <p>Only <strong>Trusted Administrators</strong> should use this function.</p>
@@ -124,7 +124,7 @@ if ( !class_exists('AddCodeToHead' ) ) {
         $newinput['text_string'] = wp_kses( $newinput['text_string'], wp_kses_allowed_html( 'post' ) );
       }
 
-      return trim($newinput);
+      return $newinput;
     }
 
     /*
