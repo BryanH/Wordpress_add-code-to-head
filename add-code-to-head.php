@@ -76,14 +76,13 @@ if ( !class_exists('AddCodeToHead' ) ) {
         '',
         array( $this, 'main_section' ),
         'acth_plugin',
-        array('before_section'=>
-?>
+        array('before_section'=> <<<END
         <div class="notice notice-warning update-nag">
           <p><strong>⚠️ WARNING:</strong><br>All code entered here is added to every page on the blog.</p>
           <p>This means any script you add here will run on every page, for every visitor.</p>
           <p>Only <strong>Trusted Administrators</strong> should use this function.</p>
         </div>
-<?php
+        END
          )
       );
       // add_action( 'admin_notices', 'acth_admin_notice');
