@@ -54,15 +54,14 @@ if ( !class_exists('AddCodeToHead' ) ) {
     }
 ?>
     <div class="plugin-options">
-     <h2><span>Add Code to Head</span></h2>
-     <form action="options.php" method="post">
+      <h2><span>Add Code to Head</span></h2>
+      <form action="options.php" method="post">
 <?php
       settings_fields( 'acth_options' );
       do_settings_sections( 'acth_plugin' );
 ?>
-
-      <input name="Submit" type="submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" />
-     </form>
+        <input name="Submit" type="submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" />
+      </form>
     </div>
 <?php
     }
@@ -72,7 +71,21 @@ if ( !class_exists('AddCodeToHead' ) ) {
      */
     function admin_init() {
       register_setting( 'acth_options', 'acth_options', array( $this, 'options_validate' ) );
-      add_settings_section( 'acth_section', '', array( $this, 'main_section' ), 'acth_plugin' );
+      add_settings_section(
+        'acth_section',
+        '',
+        array( $this, 'main_section' ),
+        'acth_plugin',
+        array('before_section'=> <<<END
+        <div class="notice notice-warning">
+          <p><strong>⚠️ WARNING:</strong><br>All code entered here is added to every public page on the blog.
+          This means any script you add here will run on every page, for every visitor.</p>
+          <p>Only <strong>Trusted Administrators</strong> should use this function.</p>
+        </div>
+        END
+         )
+      );
+      // add_action( 'admin_notices', 'acth_admin_notice');
       add_settings_field( 'acth_string', 'Code', array( $this, 'text_field'), 'acth_plugin', 'acth_section');
     }
 
@@ -121,8 +134,8 @@ if ( !class_exists('AddCodeToHead' ) ) {
     function display() {
       if( !is_admin() ) {
         $options = get_option( 'acth_options' );
-    $code = isset( $options['text_string'] ) ? $options['text_string'] : '';
-    echo $code; // Not escaped on front-end
+        $code = isset( $options['text_string'] ) ? $options['text_string'] : '';
+        echo $code; // Not escaped on front-end
       }
     }
   }

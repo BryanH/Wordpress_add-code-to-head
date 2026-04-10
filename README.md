@@ -1,17 +1,17 @@
 # Add Code To Head #
-**Contributors:** HBJitney LLC \
-**Tags:** code, javascript, css, template \
-**Requires at least:** 3.3.2 \
-**Tested up to:** 6.7.1 \
-**License:** GPLv3 \
-**License URI:** http://www.gnu.org/licenses/gpl-3.0.html \
+**Contributors:** HBJitney LLC<br>
+**Tags:** code, javascript, css, template<br>
+**Requires at least:** 3.3.2<br>
+**Tested up to:** 6.9.0<br>
+**License:** GPLv3<br>
+**License URI:** http://www.gnu.org/licenses/gpl-3.0.html<br>
 **Stable tag:** trunk
 
 Add custom Javascript/HTML/CSS codes to the page head without editing the template.
 
 ## Description ##
 
-Intended users: Template Designers, Developer
+Intended users: Template Designers, Developer, Admins
 
 If you wish to add any custom HTML to each page's header, then this plugin is for you.
 
@@ -30,7 +30,7 @@ because your changes will be lost when you next update the template.
 This plugin is not affected by template changes.
 
 ## Installation ##
-### Via your Blog’s install plugin option ###
+### Via the Wordpress install plugin option ###
 
 * Click the big 'Install Plugin' button in the plugin description window
 
@@ -54,13 +54,15 @@ If you have multiple files in a directory, use this method.
 
 The plugin now normalizes and sanitizes saved head code for users who do not have the `unfiltered_html` capability before it is stored, closing the stored XSS vector described in CVE-2025-48314 for untrusted roles. Site owners who intentionally grant `unfiltered_html` (such as administrators on single-site installs) still bypass this sanitization by design so they can insert arbitrary code.
 
+**Bottom line:** the vulnerability of executing arbitrary code in the admin screens should be eliminated, however the functionality exists for _public_ pages and is intentional. Only advanced users who know what they are doing should use this plugin.
+
 ### Q. Why aren't my codes being added to the absolute end of the head? ###
 
 Another plugin or the theme is adding their own codes to the head _after_ this plugin runs.
 
 ### Q. I don't know HTML/Javascript/CSS; can I still use this plugin? ###
 
-Yes, but you may easily get confused and mess up your whole site. It is better to learn the code first before you use this plugin.
+You can, but you shouldn't. It is far too easy to break your site if you don't know what you are doing.
 
 ### Q. [Wordfence][wf] says something like "A potentially unsafe operation has been detected in your request to this site."
 
@@ -97,7 +99,8 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 ## Changelog ##
 ### 1.19 ###
-* Fix for cross-site scripting vulnerability reported as CVE‑2025‑48314
+* Fix for cross-site scripting vulnerability in admin pages (reported as CVE‑2025‑48314).
+* Note: arbitrary code insertion on public pages remains intentional (and is the point of this plugin).
 
 ### 1.17 ###
 * Tested compatibility up to WP 6.7.1
