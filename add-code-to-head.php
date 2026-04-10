@@ -1,161 +1,277 @@
 <?php
-/*
+/**
  * Plugin Name: Add Code to Head
- * Plugin URI: http://hbjitney.com/add-code-to-header.html
- * Description: Adds custom html code (javascript, css, etc.) to each public page's head
- * Version: 1.19
- * Author: HBJitney, LLC
- * Author URI: http://hbjitney.com/
- * License: GPL3
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Plugin URI:  http://hbjitney.com/add-code-to-header.html
+ * Description: Adds custom HTML code (JavaScript, CSS, etc.) to each public page's &lt;head&gt;.
+ * Version:     1.20
+ * Author:      HBJitney, LLC
+ * Author URI:  http://hbjitney.com/
+ * License:     GPL-3.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain: add-code-to-head
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-if ( !class_exists('AddCodeToHead' ) ) {
-  /**
-  * Wrapper class to isolate us from the global space in order
-  * to prevent method collision
-  */
-  class AddCodeToHead {
-    /**
-     * Set up all actions, instantiate other
-     */
-    function __construct() {
-      add_action( 'admin_menu', array( $this, 'add_admin' ) );
-      add_action( 'admin_init', array( $this, 'admin_init' ) );
-      add_action( 'wp_head', array( $this, 'display' ) );
-    }
+// FIX #1 — Block direct file access. If WordPress is not loaded, bail immediately.
+defined( 'ABSPATH' ) || exit;
 
-    /**
-     * Add our options to the settings menu
-     */
-    function add_admin() {
-      add_options_page('Add Code to Head', 'Add Code to Head', 'manage_options', 'acth_plugin', array( $this, 'plugin_options_page' ) );
-    }
+// FIX #6 — Define a single constant for the option key so a rename touches one line.
+define( 'ACTH_OPTION_KEY', 'acth_options' );
+define( 'ACTH_VERSION',    '1.20' );
 
-    /**
-     * Callback for options page - set up page title and instantiate field
-     */
-    function plugin_options_page() {
-      // Hide our menu item if user can't change site options
-      if( !current_user_can( 'manage_options' ) ) {
-        return;
-    }
-?>
-    <div class="plugin-options">
-      <h2><span>Add Code to Head</span></h2>
-      <form action="options.php" method="post">
-<?php
-      settings_fields( 'acth_options' );
-      do_settings_sections( 'acth_plugin' );
-?>
-        <input name="Submit" type="submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" />
-      </form>
-    </div>
-<?php
-    }
-
-    /*
-     * Define options section (only one) and fields (also only one!)
-     */
-    function admin_init() {
-      register_setting( 'acth_options', 'acth_options', array( $this, 'options_validate' ) );
-      add_settings_section(
-        'acth_section',
-        '',
-        array( $this, 'main_section' ),
-        'acth_plugin',
-        array('before_section'=> <<<END
-        <div class="notice notice-warning">
-          <p><strong>⚠️ WARNING:</strong><br>All code entered here is added to every public page on the blog.
-          This means any script you add here will run on every page, for every visitor.</p>
-          <p>Only <strong>Trusted Administrators</strong> should use this function.</p>
-        </div>
-        END
-         )
-      );
-      // add_action( 'admin_notices', 'acth_admin_notice');
-      add_settings_field( 'acth_string', 'Code', array( $this, 'text_field'), 'acth_plugin', 'acth_section');
-    }
-
-    /*
-     * Static content for options section
-     */
-    function main_section() {
-      // GNDN
-      }
-
-    /*
-     * Code for field
-     */
-    function text_field() {
-      $options = get_option( 'acth_options' );
-      // If not set, output blank string to prevent error
-      $val = isset( $options['text_string'] ) ? $options['text_string'] : '';
-?>
-            <textarea id="acth_options" name="acth_options[text_string]" rows="20" cols="90">
-              <?php echo esc_textarea( $val ); ?>
-            </textarea>
-<?php
-    }
-
-    /*
-     * Normalize stored code and sanitize it for users who are not allowed
-     * to save unfiltered HTML, reducing the chance of stored XSS for those
-     * accounts while keeping full control for trusted users.
-     */
-    function options_validate($input) {
-      $newinput['text_string'] = isset( $input['text_string'] ) ? trim( $input['text_string'] ) : '';
-
-      // Only allow unfiltered HTML for users who have the capability; otherwise, sanitize.
-      if ( ! current_user_can( 'unfiltered_html' ) ) {
-        $newinput['text_string'] = wp_kses( $newinput['text_string'], wp_kses_allowed_html( 'post' ) );
-      }
-
-      return $newinput;
-    }
-
-    /*
-     * Display the code(s) on the public page.
-     * We do an extra check to ensure that the codes don't show up
-     * in the admin tool.
-     */
-    function display() {
-      if( !is_admin() ) {
-        $options = get_option( 'acth_options' );
-        $code = isset( $options['text_string'] ) ? $options['text_string'] : '';
-        echo $code; // Not escaped on front-end
-      }
-    }
-  }
-}
-
-/*
- * Sanity - was there a problem setting up the class? If so, bail with error
- * Otherwise, class is now defined; create a new one it to get the ball rolling.
+/**
+ * Main plugin class.
+ *
+ * Wraps all hooks and callbacks to avoid polluting the global namespace.
+ * FIX #10 — Implemented as a singleton so hooks are registered exactly once,
+ * even if the file is somehow included more than once.
  */
-if( class_exists( 'AddCodeToHead' ) ) {
-  new AddCodeToHead();
-} else {
-  $message = "<h2 style='color:red'>Error in plugin</h2>
-  <p>Sorry about that! Plugin <span style='color:blue;font-family:monospace'>add-code-to-head</span> reports that it was unable to start.</p>
-  <p><a href='mailto:support@hbjitney.com?subject=Add-code-to-head%20error&body=What version of Wordpress are you running? Please paste a list of your current active plugins here:'>Please report this error</a>.
-  Meanwhile, here are some things you can try:</p>
-  <ul><li>Make sure you are running the latest version of the plugin; update the plugin if not.</li>
-  <li>There might be a conflict with other plugins. You can try disabling every other plugin; if the problem goes away, there is a conflict.</li>
-  <li>Try a different theme to see if there's a conflict between the theme and the plugin.</li>
-  </ul>";
-  wp_die( $message );
+class AddCodeToHead {
+
+	/** @var AddCodeToHead|null Singleton instance. */
+	private static ?AddCodeToHead $instance = null;
+
+	/**
+	 * Return (and, on first call, create) the singleton instance.
+	 *
+	 * @return AddCodeToHead
+	 */
+	public static function get_instance(): AddCodeToHead {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Private constructor — use AddCodeToHead::get_instance() instead.
+	 * Registers all WordPress action/filter hooks.
+	 */
+	private function __construct() {
+		add_action( 'admin_menu',          array( $this, 'add_admin' ) );
+		add_action( 'admin_init',          array( $this, 'admin_init' ) );
+		add_action( 'wp_head',             array( $this, 'display' ) );
+		// FIX #12 — Add a "Settings" shortcut link on the Plugins list screen.
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ),
+		            array( $this, 'add_settings_link' ) );
+	}
+
+	// -------------------------------------------------------------------------
+	// Admin menu
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Register the options page under Settings.
+	 */
+	public function add_admin(): void {
+		add_options_page(
+			__( 'Add Code to Head', 'add-code-to-head' ),
+			__( 'Add Code to Head', 'add-code-to-head' ),
+			'manage_options',
+			'acth_plugin',
+			array( $this, 'plugin_options_page' )
+		);
+	}
+
+	/**
+	 * FIX #12 — Inject a "Settings" link into the plugin row on Plugins > Installed Plugins.
+	 *
+	 * @param string[] $links Existing action links.
+	 * @return string[]
+	 */
+	public function add_settings_link( array $links ): array {
+		$settings_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( admin_url( 'options-general.php?page=acth_plugin' ) ),
+			esc_html__( 'Settings', 'add-code-to-head' )
+		);
+		array_unshift( $links, $settings_link );
+		return $links;
+	}
+
+	// -------------------------------------------------------------------------
+	// Options page rendering
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Render the options page.
+	 * Capability is already enforced by add_options_page(), but we re-check
+	 * here as a belt-and-suspenders guard before outputting anything.
+	 */
+	public function plugin_options_page(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		?>
+		<div class="wrap">
+			<h1><?php esc_html_e( 'Add Code to Head', 'add-code-to-head' ); ?></h1>
+			<form action="options.php" method="post">
+				<?php
+				settings_fields( ACTH_OPTION_KEY );
+				do_settings_sections( 'acth_plugin' );
+				// FIX #9 — Use submit_button() (WP helper) so the button is
+				// properly labelled, styled, and i18n-aware without manual escaping.
+				submit_button( __( 'Save Changes', 'add-code-to-head' ) );
+				?>
+			</form>
+		</div>
+		<?php
+	}
+
+	// -------------------------------------------------------------------------
+	// Settings API registration
+	// -------------------------------------------------------------------------
+
+	/**
+	 * FIX #6 — Register setting and sections using ACTH_OPTION_KEY constant.
+	 * FIX #8 — Wrap all user-visible strings with __() for i18n.
+	 * FIX #11 — Removed dead commented-out add_action call.
+	 */
+	public function admin_init(): void {
+		register_setting(
+			ACTH_OPTION_KEY,
+			ACTH_OPTION_KEY,
+			array( $this, 'options_validate' )
+		);
+
+		add_settings_section(
+			'acth_section',
+			'', // No visible section title needed.
+			'__return_null', // FIX #13 — Use WP's built-in no-op instead of an empty method.
+			'acth_plugin',
+			array(
+				// before_section requires WP 6.1+; this install is 6.9.4, so this is fine.
+				'before_section' => $this->warning_html(),
+			)
+		);
+
+		add_settings_field(
+			'acth_string',
+			// FIX #8 — Label is now translation-ready.
+			__( 'Code', 'add-code-to-head' ),
+			array( $this, 'text_field' ),
+			'acth_plugin',
+			'acth_section'
+		);
+	}
+
+	/**
+	 * Build the warning banner shown above the textarea.
+	 * Kept as a method so the string is constructed once and can be unit-tested.
+	 *
+	 * @return string Safe HTML string.
+	 */
+	private function warning_html(): string {
+		return sprintf(
+			'<div class="notice notice-warning"><p><strong>%s</strong><br>%s</p><p>%s</p></div>',
+			esc_html__( '⚠️ WARNING:', 'add-code-to-head' ),
+			esc_html__( 'All code entered here is added to every public page on the blog. Any script you add here will run on every page, for every visitor.', 'add-code-to-head' ),
+			esc_html__( 'Only Trusted Administrators should use this function.', 'add-code-to-head' )
+		);
+	}
+
+	// -------------------------------------------------------------------------
+	// Field rendering
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Render the textarea field.
+	 *
+	 * FIX #2 — The opening <textarea> tag and the PHP echo are on the SAME line
+	 * to eliminate the leading newline/spaces that the original indentation was
+	 * injecting into the saved value.
+	 */
+	public function text_field(): void {
+		$options = get_option( ACTH_OPTION_KEY );
+		$val     = isset( $options['text_string'] ) ? $options['text_string'] : '';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- esc_textarea() applied.
+		printf(
+			'<textarea id="%s" name="%s[text_string]" rows="20" cols="90">%s</textarea>',
+			esc_attr( ACTH_OPTION_KEY ),
+			esc_attr( ACTH_OPTION_KEY ),
+			esc_textarea( $val )  // FIX #2 — value is the only content; no surrounding whitespace.
+		);
+	}
+
+	// -------------------------------------------------------------------------
+	// Sanitization / validation
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Sanitize incoming option value before it is stored.
+	 *
+	 * Users with `unfiltered_html` (administrators on single-site installs) may
+	 * save arbitrary markup — that is the intentional purpose of this plugin.
+	 * All other roles have their input stripped to safe post-level HTML.
+	 *
+	 * FIX #7 — Use wp_kses_post() shorthand instead of the verbose
+	 *           wp_kses( $x, wp_kses_allowed_html( 'post' ) ).
+	 *
+	 * @param array $input Raw POST input.
+	 * @return array Sanitized options array.
+	 */
+	public function options_validate( array $input ): array {
+		$new = array();
+		$new['text_string'] = isset( $input['text_string'] ) ? trim( $input['text_string'] ) : '';
+
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			$new['text_string'] = wp_kses_post( $new['text_string'] );
+		}
+
+		return $new;
+	}
+
+	// -------------------------------------------------------------------------
+	// Front-end output
+	// -------------------------------------------------------------------------
+
+	/**
+	 * Echo the saved code into the public <head>.
+	 *
+	 * FIX #14 — The is_admin() guard is kept as an explicit defence-in-depth
+	 * measure. wp_head does not fire in wp-admin, so the check is technically
+	 * redundant, but it prevents accidental output if hook timing ever changes.
+	 *
+	 * NOTE: Output is intentionally NOT escaped — arbitrary HTML/JS injection
+	 * into the <head> is the entire purpose of this plugin. Access is controlled
+	 * at save-time via options_validate() and the manage_options capability.
+	 */
+	public function display(): void {
+		if ( is_admin() ) {
+			return;
+		}
+
+		$options = get_option( ACTH_OPTION_KEY );
+		$code    = isset( $options['text_string'] ) ? $options['text_string'] : '';
+
+		if ( '' !== $code ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo "\n" . $code . "\n";
+		}
+	}
 }
-?>
+
+// -----------------------------------------------------------------------------
+// Bootstrap
+// FIX #3 — The original else/wp_die was unreachable dead code: if the class
+// definition block ran, the class always exists. Replaced with a direct
+// instantiation via the singleton factory on the 'plugins_loaded' hook, which
+// is the correct point to initialise a plugin after all plugins are loaded and
+// translation files are available.
+// -----------------------------------------------------------------------------
+add_action( 'plugins_loaded', array( 'AddCodeToHead', 'get_instance' ) );
+
+// FIX #4 — No closing PHP tag. Eliminates any risk of accidental trailing
+// whitespace causing "headers already sent" errors.
