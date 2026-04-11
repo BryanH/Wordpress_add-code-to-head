@@ -1,7 +1,7 @@
 # Add Code To Head #
 **Contributors:** HBJitney LLC<br>
 **Tags:** code, javascript, css, template<br>
-**Requires at least:** 6.7.1<br>
+**Requires at least:** 6.1<br>
 **Tested up to:** 6.9.0<br>
 **License:** GPLv3<br>
 **License URI:** http://www.gnu.org/licenses/gpl-3.0.html<br>

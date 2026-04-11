@@ -24,10 +24,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// FIX #1 — Block direct file access. If WordPress is not loaded, bail immediately.
+// Block direct file access. Prevent direct execution.
 defined( 'ABSPATH' ) || exit;
 
-// FIX #6 — Define a single constant for the option key so a rename touches one line.
 define( 'ACTH_OPTION_KEY', 'acth_options' );
 define( 'ACTH_VERSION',    '1.20' );
 
@@ -35,8 +34,6 @@ define( 'ACTH_VERSION',    '1.20' );
  * Main plugin class.
  *
  * Wraps all hooks and callbacks to avoid polluting the global namespace.
- * FIX #10 — Implemented as a singleton so hooks are registered exactly once,
- * even if the file is somehow included more than once.
  */
 class AddCodeToHead {
 
@@ -63,7 +60,7 @@ class AddCodeToHead {
 		add_action( 'admin_menu',          array( $this, 'add_admin' ) );
 		add_action( 'admin_init',          array( $this, 'admin_init' ) );
 		add_action( 'wp_head',             array( $this, 'display' ) );
-		// FIX #12 — Add a "Settings" shortcut link on the Plugins list screen.
+		// Add "Settings" shortcut link on the Plugins list screen.
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ),
 		            array( $this, 'add_settings_link' ) );
 	}
@@ -86,7 +83,7 @@ class AddCodeToHead {
 	}
 
 	/**
-	 * FIX #12 — Inject a "Settings" link into the plugin row on Plugins > Installed Plugins.
+	 * Inject our "Settings" link on the Installed Plugins page
 	 *
 	 * @param string[] $links Existing action links.
 	 * @return string[]
@@ -121,8 +118,6 @@ class AddCodeToHead {
 				<?php
 				settings_fields( ACTH_OPTION_KEY );
 				do_settings_sections( 'acth_plugin' );
-				// FIX #9 — Use submit_button() (WP helper) so the button is
-				// properly labelled, styled, and i18n-aware without manual escaping.
 				submit_button( __( 'Save Changes', 'add-code-to-head' ) );
 				?>
 			</form>
@@ -134,11 +129,6 @@ class AddCodeToHead {
 	// Settings API registration
 	// -------------------------------------------------------------------------
 
-	/**
-	 * FIX #6 — Register setting and sections using ACTH_OPTION_KEY constant.
-	 * FIX #8 — Wrap all user-visible strings with __() for i18n.
-	 * FIX #11 — Removed dead commented-out add_action call.
-	 */
 	public function admin_init(): void {
 		register_setting(
 			ACTH_OPTION_KEY,
@@ -148,18 +138,17 @@ class AddCodeToHead {
 
 		add_settings_section(
 			'acth_section',
-			'', // No visible section title needed.
-			'__return_null', // FIX #13 — Use WP's built-in no-op instead of an empty method.
+			'', // No section title
+			'__return_null',
 			'acth_plugin',
 			array(
-				// before_section requires WP 6.1+; this install is 6.9.4, so this is fine.
+				// Note: before_section requires WP 6.1+
 				'before_section' => $this->warning_html(),
 			)
 		);
 
 		add_settings_field(
 			'acth_string',
-			// FIX #8 — Label is now translation-ready.
 			__( 'Code', 'add-code-to-head' ),
 			array( $this, 'text_field' ),
 			'acth_plugin',
@@ -169,7 +158,8 @@ class AddCodeToHead {
 
 	/**
 	 * Build the warning banner shown above the textarea.
-	 * Kept as a method so the string is constructed once and can be unit-tested.
+	 * Kept as a method so the string is constructed once
+   * and can be unit-tested.
 	 *
 	 * @return string Safe HTML string.
 	 */
@@ -188,10 +178,6 @@ class AddCodeToHead {
 
 	/**
 	 * Render the textarea field.
-	 *
-	 * FIX #2 — The opening <textarea> tag and the PHP echo are on the SAME line
-	 * to eliminate the leading newline/spaces that the original indentation was
-	 * injecting into the saved value.
 	 */
 	public function text_field(): void {
 		$options = get_option( ACTH_OPTION_KEY );
@@ -201,7 +187,7 @@ class AddCodeToHead {
 			'<textarea id="%s" name="%s[text_string]" rows="20" cols="90">%s</textarea>',
 			esc_attr( ACTH_OPTION_KEY ),
 			esc_attr( ACTH_OPTION_KEY ),
-			esc_textarea( $val )  // FIX #2 — value is the only content; no surrounding whitespace.
+			esc_textarea( $val )
 		);
 	}
 
@@ -215,9 +201,6 @@ class AddCodeToHead {
 	 * Users with `unfiltered_html` (administrators on single-site installs) may
 	 * save arbitrary markup — that is the intentional purpose of this plugin.
 	 * All other roles have their input stripped to safe post-level HTML.
-	 *
-	 * FIX #7 — Use wp_kses_post() shorthand instead of the verbose
-	 *           wp_kses( $x, wp_kses_allowed_html( 'post' ) ).
 	 *
 	 * @param array $input Raw POST input.
 	 * @return array Sanitized options array.
@@ -240,9 +223,7 @@ class AddCodeToHead {
 	/**
 	 * Echo the saved code into the public <head>.
 	 *
-	 * FIX #14 — The is_admin() guard is kept as an explicit defence-in-depth
-	 * measure. wp_head does not fire in wp-admin, so the check is technically
-	 * redundant, but it prevents accidental output if hook timing ever changes.
+	 * The is_admin() guard prevents accidental output if hook timing ever changes.
 	 *
 	 * NOTE: Output is intentionally NOT escaped — arbitrary HTML/JS injection
 	 * into the <head> is the entire purpose of this plugin. Access is controlled
@@ -263,15 +244,9 @@ class AddCodeToHead {
 	}
 }
 
-// -----------------------------------------------------------------------------
-// Bootstrap
-// FIX #3 — The original else/wp_die was unreachable dead code: if the class
-// definition block ran, the class always exists. Replaced with a direct
-// instantiation via the singleton factory on the 'plugins_loaded' hook, which
-// is the correct point to initialise a plugin after all plugins are loaded and
-// translation files are available.
-// -----------------------------------------------------------------------------
+// ****************************************************************************
+// *                             === BOOTSTRAP ===                            *
+// *           Direct instantiation via the singleton factory on the          *
+// *     'plugins_loaded' hook, the correct point to initialize a plugin.     *
+// ****************************************************************************
 add_action( 'plugins_loaded', array( 'AddCodeToHead', 'get_instance' ) );
-
-// FIX #4 — No closing PHP tag. Eliminates any risk of accidental trailing
-// whitespace causing "headers already sent" errors.
