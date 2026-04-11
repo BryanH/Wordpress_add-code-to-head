@@ -126,10 +126,15 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 ### 1.07 ###
 * Original release
 
-## Upgrade Notice ##
-
 ### 1.19 ###
 * Fix for CVE ID: CVE‑2025‑48314
 * Stored head code is sanitized for users without `unfiltered_html`, mitigating the cross-site scripting (XSS) issue for untrusted roles
+
+## Upgrade Notice ##
+
+### 1.21 ###
+
+* Fixed bug that caused extra space to be added to head contents.
+* Code quality and best-practice pass. No database schema changes; existing saved code is unaffected.
 
 [wf]:https://www.wordfence.com
