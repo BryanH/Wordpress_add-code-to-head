@@ -1,11 +1,11 @@
 # Add Code To Head #
 **Tags:** code, javascript, css, template<br>
 **Requires at least:** 6.1<br>
-**Tested up to:** 6.9.0<br>
-**Requires PHP:** 8.5<br>
+**Tested up to:** 6.9.4<br>
+**Requires PHP:** 8.0<br>
 **License:** GPLv3<br>
 **License URI:** http://www.gnu.org/licenses/gpl-3.0.html<br>
-**Stable tag:** trunk
+**Stable tag:** 1.23
 
 Add custom Javascript/HTML/CSS codes to the page head without editing the template.
 
@@ -15,17 +15,9 @@ Intended users: Template Designers, Developer, Admins
 
 If you wish to add any custom HTML to each page's header, then this plugin is for you.
 
-This is useful for verifying you are the owner of the website to services such
-as Mailchimp or Google. You can quickly add the verification codes to your page
-header without having to edit your site's template.
+This is useful for verifying you are the owner of the website to services such as Mailchimp or Google. You can quickly add the verification codes to your page header without having to edit your site's template.
 
-In general, you can add custom CSS, a link to an external javascript file or
-something else. While it is generally recommended to create a child template if
-you're going to make extensive, permanent changes to a template, there may be
-instances where a small change or two is needed that wouldn't justify the
-creation of a child template&mdash;or your current template might not support
-child templates. You should nearly always avoid editing a template directly,
-because your changes will be lost when you next update the template.
+In general, you can add custom CSS, a link to an external javascript file or something else. While it is generally recommended to create a child template if you're going to make extensive, permanent changes to a template, there may be instances where a small change or two is needed that wouldn't justify the creation of a child template&mdash;or your current template might not support child templates. You should nearly always avoid editing a template directly, because your changes will be lost when you next update the template.
 
 This plugin is not affected by template changes.
 
@@ -99,41 +91,51 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 ## Changelog ##
 ### 1.21 ###
+* Apr 10, 2026
 * Fixed bug that caused extra space to be added to head contents.
 * Code quality and best-practice pass. No database schema changes; existing saved code is unaffected.
 
 ### 1.19 ###
+* (never released)
 * Fix for CVE ID: CVE‑2025‑48314
 * Stored head code is sanitized for users without `unfiltered_html`, mitigating the cross-site scripting (XSS) issue for untrusted roles
 * Note: arbitrary code insertion on public pages remains intentional (and is the point of this plugin).
 
 ### 1.17 ###
+* Feb 9, 2025
 * Tested compatibility up to WP 6.7.1
 * Added note about Wordfence error that might be encountered
 
 ### 1.15 ###
+* Jun 3, 2021
 * Tested compatibility up to WP 5.7.2
 * Reformatted script: converted tabs to spaces
 
 ### 1.13 ###
+* Sep 12, 2016
 * Tested compatibility up to WP 4.6.1
 
 ### 1.11 ###
+* Oct 11, 2015
 * Name changed to (hopefully) reduce confusion.
 
 ### 1.10 ###
+* Oct 11, 2015
 * Screenshot updated
 * Compatibility with latest WordPress
 
 ### 1.09 ###
+* Jul 27, 2012
 * Readme file added
 
 ### 1.07 ###
+* May 2, 2012
 * Original release
 
 ## Upgrade Notice ##
 
 ### 1.23 ###
+* Apr 22, 2026
 * No-change release
 * Internal synchronization; no effect on users (you can stay on v1.21 if you like)
 
