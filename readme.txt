@@ -1,15 +1,15 @@
-# Add Code To Head #
-**Tags:** code, javascript, css, template<br>
-**Requires at least:** 6.1<br>
-**Tested up to:** 6.9.0<br>
-**Requires PHP:** 8.5<br>
-**License:** GPLv3<br>
-**License URI:** http://www.gnu.org/licenses/gpl-3.0.html<br>
-**Stable tag:** trunk
+=== Add Code To Head ===
+Tags: code, javascript, css, template
+Requires at least: 6.1
+Tested up to: 6.9.0
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Stable tag: 1.21
+Requires PHP: 8.5
 
-Add custom Javascript/HTML/CSS codes to the page head without editing the template.
+Add custom JavaScript/HTML/CSS codes to the page head without editing the template.
 
-## Description ##
+== Description ==
 
 Intended users: Template Designers, Developer, Admins
 
@@ -19,7 +19,7 @@ This is useful for verifying you are the owner of the website to services such
 as Mailchimp or Google. You can quickly add the verification codes to your page
 header without having to edit your site's template.
 
-In general, you can add custom CSS, a link to an external javascript file or
+In general, you can add custom CSS, a link to an external JavaScript file or
 something else. While it is generally recommended to create a child template if
 you're going to make extensive, permanent changes to a template, there may be
 instances where a small change or two is needed that wouldn't justify the
@@ -29,112 +29,108 @@ because your changes will be lost when you next update the template.
 
 This plugin is not affected by template changes.
 
-## Installation ##
-### Via the WordPress install plugin option ###
+== Installation ==
+= Via the WordPress install plugin option =
 
 * Click the big 'Install Plugin' button in the plugin description window
 
-### Upload ###
+= Upload =
 If you have a single file (ending in ".zip"), then use this method.
 
 1. From the plugins, add new, click on the **upload** button
 1. Navigate to where the .zip file is located and select it
 1. Make sure to *activate* the plugin once it is installed
 
-### Files ###
+= Files =
 If you have multiple files in a directory, use this method.
 
 1. Upload the entire directory (not just the files) to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 
-## Frequently Asked Questions ##
+== Frequently Asked Questions ==
 
-### Q. Will the latest changes resolve CVE-2025-48314? ###
+= Q. Will the latest changes resolve CVE-2025-48314? =
 
 The plugin now normalizes and sanitizes saved head code for users who do not have the `unfiltered_html` capability before it is stored, closing the stored XSS vector described in CVE-2025-48314 for untrusted roles. Site owners who intentionally grant `unfiltered_html` (such as administrators on single-site installs) still bypass this sanitization by design so they can insert arbitrary code.
 
 **Bottom line:** the vulnerability of executing arbitrary code in the admin screens should be eliminated, however the functionality exists for _public_ pages and is intentional. Only advanced users who know what they are doing should use this plugin.
 
-### Q. Why aren't my codes being added to the absolute end of the head? ###
+= Q. Why aren't my codes being added to the absolute end of the head? =
 
 Another plugin or the theme is adding their own codes to the head _after_ this plugin runs.
 
-### Q. I don't know HTML/JavaScript/CSS; can I still use this plugin? ###
+= Q. I don't know HTML/JavaScript/CSS; can I still use this plugin? =
 
 You can, but you shouldn't. It is far too easy to break your site if you don't know what you are doing.
 
-### Q. [Wordfence][wf] says something like "A potentially unsafe operation has been detected in your request to this site."
+= Q. Wordfence says something like "A potentially unsafe operation has been detected in your request to this site." =
 
 If you try to add a script or some other potentially-dangerous code (even if it isn't), Wordfence might complain. Double check your code and if it is okay, mark it as a false positive in Wordfence.
 
-### Q. Help! I messed up my whole site! ###
+= Q. Help! I messed up my whole site! =
 
 Disable the plugin. If your site is still messed up, then there's some other problem.
 
-### Q. I disabled your plugin and the problem went away. Now what? ###
+= Q. I disabled your plugin and the problem went away. Now what? =
 
 The problem lies in whatever you typed/pasted into this plugin's option screen. If you're really stuck, then try clearing out the code and starting over.
 
-### Q. Help! I accidentally erased the code and I didn't mean to do that. ###
+= Q. Help! I accidentally erased the code and I didn't mean to do that. =
 
 Similar to [how widgets work](https://codex.wordpress.org/WordPress_Widgets), that data is stored in your database. If you made a backup before you deleted the data, then you can restore it that way, otherwise it is gone.
 
-### Q. How do I apply code to only a certain page or pages? ###
+= Q. How do I apply code to only a certain page or pages? =
 
 Right now you cannot. If there is sufficient demand, then we'll add it.
 
-### Q. Can I ask for additional functionality? ###
+= Q. Can I ask for additional functionality? =
 
 Absolutely!
 
-## Screenshots ##
+== Screenshots ==
 
-### 1. Options screen ###
-![1. Options screen](http://ps.w.org/add-code-to-head/assets/screenshot-1.png)
+1. Options screen
 
-
-## Acknowledgements ##
+== Acknowledgements ==
 Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
-## Changelog ##
-### 1.21 ###
+== Changelog ==
+= 1.21 =
 * Fixed bug that caused extra space to be added to head contents.
 * Code quality and best-practice pass. No database schema changes; existing saved code is unaffected.
 
-### 1.19 ###
+= 1.19 =
 * Fix for CVE ID: CVE‑2025‑48314
 * Stored head code is sanitized for users without `unfiltered_html`, mitigating the cross-site scripting (XSS) issue for untrusted roles
 * Note: arbitrary code insertion on public pages remains intentional (and is the point of this plugin).
 
-### 1.17 ###
+= 1.17 =
 * Tested compatibility up to WP 6.7.1
 * Added note about Wordfence error that might be encountered
 
-### 1.15 ###
+= 1.15 =
 * Tested compatibility up to WP 5.7.2
 * Reformatted script: converted tabs to spaces
 
-### 1.13 ###
+= 1.13 =
 * Tested compatibility up to WP 4.6.1
 
-### 1.11 ###
+= 1.11 =
 * Name changed to (hopefully) reduce confusion.
 
-### 1.10 ###
+= 1.10 =
 * Screenshot updated
 * Compatibility with latest WordPress
 
-### 1.09 ###
+= 1.09 =
 * Readme file added
 
-### 1.07 ###
+= 1.07 =
 * Original release
 
-## Upgrade Notice ##
+== Upgrade Notice ==
 
-### 1.23 ###
+= 1.21 =
 * No-change release
 * Internal synchronization; no effect on users (you can stay on v1.21 if you like)
-
-[wf]:https://www.wordfence.com
