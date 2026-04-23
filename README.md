@@ -98,8 +98,13 @@ Absolutely!
 Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 
 ## Changelog ##
+### 1.21 ###
+* Fixed bug that caused extra space to be added to head contents.
+* Code quality and best-practice pass. No database schema changes; existing saved code is unaffected.
+
 ### 1.19 ###
-* Fix for cross-site scripting vulnerability in admin pages (reported as CVE‑2025‑48314).
+* Fix for CVE ID: CVE‑2025‑48314
+* Stored head code is sanitized for users without `unfiltered_html`, mitigating the cross-site scripting (XSS) issue for untrusted roles
 * Note: arbitrary code insertion on public pages remains intentional (and is the point of this plugin).
 
 ### 1.17 ###
@@ -126,15 +131,10 @@ Plugin Icon (CC BY 3.0) by [DeniShop](https://www.iconfinder.com/denir)
 ### 1.07 ###
 * Original release
 
-### 1.19 ###
-* Fix for CVE ID: CVE‑2025‑48314
-* Stored head code is sanitized for users without `unfiltered_html`, mitigating the cross-site scripting (XSS) issue for untrusted roles
-
 ## Upgrade Notice ##
 
-### 1.21 ###
-
-* Fixed bug that caused extra space to be added to head contents.
-* Code quality and best-practice pass. No database schema changes; existing saved code is unaffected.
+### 1.23 ###
+* No-change release
+* Internal synchonization; no effect on users (you can stay on previous release if you like)
 
 [wf]:https://www.wordfence.com
